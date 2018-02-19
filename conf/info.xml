@@ -10,8 +10,12 @@
 	</description>
 	<version>1.8.3</version>
 	<date>2018-02-13</date>
+	<author link="http://www.daolcms.org/">
+		<name xml:lang="ko">DAOL</name>
+		<name xml:lang="en">DAOL</name>
+	</author>
 	<author link="https://www.poesis.org">
-		<name xml:lang="ko">포에시스</name>
+		<name xml:lang="ko">POESIS</name>
 		<name xml:lang="en">POESIS</name>
 	</author>
 </module>
