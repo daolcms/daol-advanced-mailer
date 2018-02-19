@@ -1,7 +1,7 @@
 <include target="./common.html" />
 <load target="css/config.css" />
 
-<form class="x_form-horizontal" action="./" method="post" id="advanced_mailer">
+<form class="form" action="./" method="post" id="advanced_mailer">
 	<input type="hidden" name="module" value="advanced_mailer" />
 	<input type="hidden" name="act" value="procAdvanced_mailerAdminInsertExceptions" />
 	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
@@ -13,16 +13,17 @@
 	<section class="section">
 		
 		<div class="x_control-group">
-			<label class="x_control-label">{$lang->cmd_advanced_mailer_sending_method_default}</label>
+			<h3>{$lang->cmd_advanced_mailer_sending_method_default}</h3>
 			<div class="x_controls margin-top">
-				{Context::getLang('cmd_advanced_mailer_sending_method_' . $sending_method)}
+				
 				<!--@if($sending_method === 'woorimail')-->
-					&mdash;
 					<!--@if($advanced_mailer_config['woorimail_account_type'] === 'free')-->
-						{$lang->cmd_advanced_mailer_free_account}
+						<h3>{Context::getLang('cmd_advanced_mailer_sending_method_' . $sending_method)} {$lang->cmd_advanced_mailer_free_account}</h3>
 					<!--@else-->
-						{$lang->cmd_advanced_mailer_paid_account}
+						<h3>{Context::getLang('cmd_advanced_mailer_sending_method_' . $sending_method)} {$lang->cmd_advanced_mailer_paid_account}</h3>
 					<!--@end-->
+				<!--@else-->
+					<h3>{Context::getLang('cmd_advanced_mailer_sending_method_' . $sending_method)}</h3>
 				<!--@end-->
 			</div>
 		</div>
@@ -30,40 +31,38 @@
 	</section>
 	
 	<!--@for($i = 1; $i <= 3; $i++)-->
-	<section class="section">
-		
-		<h2 style="padding-top:12px">{$lang->cmd_advanced_mailer_exception_group} {$i}</h2>
-		
-		<div class="x_control-group">
-			<label class="x_control-label" for="advanced_mailer_exception_{$i}_method">{$lang->cmd_advanced_mailer_sending_method}</label>
-			<div class="x_controls">
-				<select name="exception_{$i}_method" id="advanced_mailer_exception_{$i}_method">
-				<option value="default">{$lang->cmd_advanced_mailer_exception_disabled}</option>
-					<!--@foreach($available_sending_methods as $method)-->
-						<option value="{$method}" selected="selected"|cond="$advanced_mailer_config['exceptions'][$i]['method'] === $method" cond="in_array($method, $available_sending_methods)">{Context::getLang('cmd_advanced_mailer_sending_method_' . $method)}</option>
-					<!--@end-->
-				</select>
-				<p class="x_help-block" cond="count($available_sending_methods) < count($sending_methods)">{$lang->msg_advanced_mailer_php_version_is_low}</p>
-			</div>
+		<h2 class="h2">{$lang->cmd_advanced_mailer_exception_group} {$i}</h2>
+		<p></p>
+		<div class="table">
+			<table width="100%" border="1" cellspacing="0">
+				<tr>
+					<th scope="row">{$lang->cmd_advanced_mailer_sending_method}</th>
+					<td>
+						<select name="exception_{$i}_method" id="advanced_mailer_exception_{$i}_method">
+						<option value="default">{$lang->cmd_advanced_mailer_exception_disabled}</option>
+							<!--@foreach($available_sending_methods as $method)-->
+								<option value="{$method}" selected="selected"|cond="$advanced_mailer_config['exceptions'][$i]['method'] === $method" cond="in_array($method, $available_sending_methods)">{Context::getLang('cmd_advanced_mailer_sending_method_' . $method)}</option>
+							<!--@end-->
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->cmd_advanced_mailer_exception_domains_list}</th>
+					<td>
+						<textarea name="exception_{$i}_domains" id="advanced_mailer_exception_{$i}_domains" class="exception-domains">{implode(', ', $advanced_mailer_config['exceptions'][$i]['domains'])}</textarea>
+						<p class="x_help-block">{$lang->cmd_advanced_mailer_about_exception_domains_list}</p>
+					</td>
+				</tr>
+			</table>
 		</div>
-		
-		<div class="x_control-group">
-			<label class="x_control-label" for="advanced_mailer_exception_{$i}_domains">{$lang->cmd_advanced_mailer_exception_domains_list}</label>
-			<div class="x_controls">
-				<textarea name="exception_{$i}_domains" id="advanced_mailer_exception_{$i}_domains" class="exception-domains">{implode(', ', $advanced_mailer_config['exceptions'][$i]['domains'])}</textarea>
-				<p class="x_help-block">{$lang->cmd_advanced_mailer_about_exception_domains_list}</p>
-			</div>
-		</div>
-		
-	</section>
 	<!--@end-->
 	
 	<div style="margin-top:32px">
 		※ {$lang->cmd_advanced_mailer_about_exception_domains}
 	</div>
 	
-	<div class="btnArea x_clearfix">
-		<button type="submit" class="x_btn x_btn-primary x_pull-right">{$lang->cmd_registration}</button>
+	<div class="btnArea">
+		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span>
 	</div>
 	
 </form>
