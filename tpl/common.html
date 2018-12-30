@@ -9,3 +9,7 @@
 		<li class="active"|cond="$act == 'dispAdvanced_mailerAdminErrors'"><a href="{getUrl('', 'module', 'admin', 'act', 'dispAdvanced_mailerAdminErrors')}">{$lang->cmd_advanced_mailer_log_errors}</a></li>
 	</ul>
 </div>
+
+<div class="message error" cond="defined('RX_VERSION')" style="padding:1em">
+	{$lang->cmd_advanced_mailer_not_rhymix}
+</div>
